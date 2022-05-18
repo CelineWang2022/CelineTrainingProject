@@ -1,6 +1,6 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="simpecalculator" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="768.8,962.4" sap2010:WorkflowViewState.IdRef="simpecalculator_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="simpecalculator" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="768.8,962.4" sap2010:WorkflowViewState.IdRef="simpecalculator_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="23">
+    <scg:List x:TypeArguments="x:String" Capacity="46">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -24,10 +24,11 @@
       <x:String>System.Windows.Markup</x:String>
       <x:String>System.Reflection</x:String>
       <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="18">
+    <sco:Collection x:TypeArguments="AssemblyReference">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -46,9 +47,15 @@
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
       <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
       <AssemblyReference>System.Memory</AssemblyReference>
-    </scg:List>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="simplecalculator" sap:VirtualizedContainerService.HintSize="375.2,951.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="simplecalculator" sap:VirtualizedContainerService.HintSize="538.4,1333.6" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Double" Name="num1" />
       <Variable x:TypeArguments="x:Double" Name="num2" />
@@ -59,20 +66,26 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="333.6,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Enter a value" Title="Num1">
+    <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="496.8,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Enter a value" Title="Num1">
       <ui:InputDialog.Result>
         <OutArgument x:TypeArguments="x:Double">[num1]</OutArgument>
       </ui:InputDialog.Result>
     </ui:InputDialog>
-    <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="333.6,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_3" IsPassword="False" Label="Enter a value" Title="Num2">
+    <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="496.8,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_3" IsPassword="False" Label="Enter a value" Title="Num2">
       <ui:InputDialog.Result>
         <OutArgument x:TypeArguments="x:Double">[num2]</OutArgument>
       </ui:InputDialog.Result>
     </ui:InputDialog>
-    <ui:InputDialog OptionsString="{x:Null}" Title="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="333.6,295.2" sap2010:WorkflowViewState.IdRef="InputDialog_4" IsPassword="False" Label="Make your choice" Options="[{&#xD;&#xA;&quot;+ Addition&quot;,&#xD;&#xA;&quot;- Substraction&quot;,&#xD;&#xA;&quot;* Multiplication&quot;,&#xD;&#xA;&quot;/ Division&quot;&#xD;&#xA;}]">
+    <ui:InputDialog OptionsString="{x:Null}" Title="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="496.8,295.2" sap2010:WorkflowViewState.IdRef="InputDialog_4" IsPassword="False" Label="Make your choice" Options="[{&#xD;&#xA;&quot;+ Addition&quot;,&#xD;&#xA;&quot;- Substraction&quot;,&#xD;&#xA;&quot;* Multiplication&quot;,&#xD;&#xA;&quot;/ Division&quot;&#xD;&#xA;}]">
       <ui:InputDialog.Result>
         <OutArgument x:TypeArguments="x:String">[Choice]</OutArgument>
       </ui:InputDialog.Result>
     </ui:InputDialog>
+    <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[Choice]" sap:VirtualizedContainerService.HintSize="496.8,342.4" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" x:Key="+ Addition" AutoCloseAfter="00:00:00" sap:VirtualizedContainerService.HintSize="333.6,85.6" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;The sum of 2 numbers is: &quot; +(num1+num2).ToString]" />
+      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" x:Key="- Substraction" AutoCloseAfter="00:00:00" sap:VirtualizedContainerService.HintSize="333.6,85.6" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;The substracted of 2 numbers is: &quot; +(num1-num2).ToString]" />
+      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" x:Key="* Multiplication" AutoCloseAfter="00:00:00" sap:VirtualizedContainerService.HintSize="333.6,85.6" sap2010:WorkflowViewState.IdRef="MessageBox_3" Text="[&quot;The multiplied value of 2 numbers is: &quot; +(num1*num2).ToString]" />
+      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" x:Key="/ Division" AutoCloseAfter="00:00:00" sap:VirtualizedContainerService.HintSize="333.6,85.6" sap2010:WorkflowViewState.IdRef="MessageBox_4" Text="[&quot;The divided value of 2 numbers is: &quot; +(num1/num2).ToString]" />
+    </Switch>
   </Sequence>
 </Activity>
